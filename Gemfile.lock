@@ -69,7 +69,7 @@ DEPENDENCIES
   rspec (~> 3.10)
   rubocop (~> 1.9.1)
   rubocop-performance (~> 1.9.2)
-  rubocop-rake
+  rubocop-rake (~> 0.5.1)
   rubocop-rspec (~> 2.2.0)
 
 BUNDLED WITH
