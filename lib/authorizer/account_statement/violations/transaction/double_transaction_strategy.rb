@@ -9,10 +9,10 @@ module Authorizer
             'double-transaction'
           end
 
-          def violation?(event:, statements_history:)
-            time = Time.parse(event[:time])
-            merchant = event[:merchant]
-            amount = event[:amount]
+          def violation?(operation:, statements_history:)
+            time = Time.parse(operation[:time])
+            merchant = operation[:merchant]
+            amount = operation[:amount]
 
             similar_transaction?(
               statements_history: statements_history,

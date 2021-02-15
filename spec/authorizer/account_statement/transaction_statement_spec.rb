@@ -8,7 +8,7 @@ RSpec.describe Authorizer::AccountStatement::TransactionStatement do
   let(:merchant) { "Habbib\'s" }
   let(:amount) { 10 }
   let(:time) { '2019-02-13T11:00:00.000Z' }
-  let(:event) do
+  let(:operation) do
     { merchant: merchant, amount: amount, time: time }
   end
 
@@ -16,7 +16,7 @@ RSpec.describe Authorizer::AccountStatement::TransactionStatement do
     described_class.new(
       active_card: active_card,
       available_limit: available_limit,
-      event: event,
+      operation: operation,
       violations: violations
     )
   end

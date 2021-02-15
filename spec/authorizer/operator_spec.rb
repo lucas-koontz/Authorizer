@@ -6,7 +6,7 @@ RSpec.describe Authorizer::Operator do
   end
 
   let(:operator_output) do
-    [{ 'account': { 'active-card': true, 'available-limit': 100 }, 'violations': [] }]
+    [{ account: { 'active-card': true, 'available-limit': 100 }, violations: [] }]
   end
 
   describe '#call' do
@@ -25,7 +25,7 @@ RSpec.describe Authorizer::Operator do
       allow(ARGF).to receive(:read).and_return(operator_input)
 
       expect(Authorizer::Processor).to receive(:call)
-        .with(event_stream: expected_input)
+        .with(operation_stream: expected_input)
         .and_return(operator_output)
 
       described_class.call

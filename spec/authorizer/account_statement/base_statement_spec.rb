@@ -3,14 +3,14 @@
 RSpec.describe Authorizer::AccountStatement::BaseStatement do
   let(:active_card) { true }
   let(:available_limit) { 100 }
-  let(:event) { 'event' }
+  let(:operation) { 'operation' }
   let(:violations) { ['a-very-bad-violation'] }
 
   subject do
     described_class.new(
       active_card: active_card,
       available_limit: available_limit,
-      event: event,
+      operation: operation,
       violations: violations
     )
   end

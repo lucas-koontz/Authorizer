@@ -4,11 +4,11 @@ module Authorizer
   module AccountStatement
     class TransactionStatement < BaseStatement
       def merchant
-        @merchant ||= event[:merchant]
+        @merchant ||= operation[:merchant]
       end
 
       def time
-        @time ||= DateTime.parse(event[:time])
+        @time ||= Time.parse(operation[:time])
       end
     end
   end

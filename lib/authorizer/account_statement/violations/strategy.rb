@@ -8,7 +8,7 @@ module Authorizer
           raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
         end
 
-        def violation?(_event:, _statements_history:)
+        def violation?(_operation:, _statements_history:)
           raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
         end
       end

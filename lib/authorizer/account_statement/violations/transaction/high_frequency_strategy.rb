@@ -9,8 +9,8 @@ module Authorizer
             'high-frequency-small-interval'
           end
 
-          def violation?(event:, statements_history:)
-            time = Time.parse(event[:time])
+          def violation?(operation:, statements_history:)
+            time = Time.parse(operation[:time])
 
             high_frequency?(statements_history: statements_history, time: time)
           end

@@ -4,7 +4,7 @@ module Authorizer
   class Operator < ServiceBase
     def call
       input = ARGF.read
-      output = Authorizer::Processor.call(event_stream: parse(input))
+      output = Authorizer::Processor.call(operation_stream: parse(input))
       puts output
     end
 

@@ -4,66 +4,63 @@ RSpec.describe Authorizer::AccountStatement::Violations::
                Creation::AccountAlreadyInitializedStrategy do
   subject { described_class.new }
 
+  let(:operation) { nil }
+  let(:active_card) { true }
+  let(:available_limit) { 1 }
+
+  let(:violations) { [] }
+
+  let(:statements_history) do
+    [
+      Authorizer::AccountStatement::CreationStatement.new(
+        active_card: active_card,
+        available_limit: available_limit,
+        operation: operation,
+        violations: violations
+      )
+    ]
+  end
+
   describe '#rule_name' do
     it { expect(subject.rule_name).to eq('account-already-initialized') }
   end
 
   describe '#violation?' do
-    let(:event) { nil }
-    let(:active_card) { true }
-    let(:available_limit) { 1 }
-
-    it 'allows an account creation when its the first event' do
+    it 'allows an account creation when its the first operation' do
       expect(
-        subject.violation?(event: event, statements_history: [])
+        subject.violation?(operation: operation, statements_history: [])
       ).to be false
     end
 
-    it 'allows an account creation when no account has been created' do
-      not_initialized_rule_name = Authorizer::AccountStatement::
-                                  Violations::Transaction::
-                                  AccountNotInitializedStrategy.new.rule_name
+    context 'no account created' do
+      let(:not_initialized_rule_name) do
+        Authorizer::AccountStatement::Violations::Transaction::
+                                      AccountNotInitializedStrategy.new.rule_name
+      end
 
-      statements_history = [
-        Authorizer::AccountStatement::CreationStatement.new(
-          active_card: active_card,
-          available_limit: available_limit,
-          event: event,
-          violations: [not_initialized_rule_name]
-        )
-      ]
+      let(:violations) { [not_initialized_rule_name] }
 
-      expect(
-        subject.violation?(event: event, statements_history: statements_history)
-      ).to be false
+      it 'allows an account creation when last transaction was unsuccessful' do
+        expect(
+          subject.violation?(operation: operation, statements_history: statements_history)
+        ).to be false
+      end
     end
 
     it 'violates when trying to recreate/update the account' do
-      statements_history = [
-        Authorizer::AccountStatement::CreationStatement.new(
-          active_card: active_card,
-          available_limit: available_limit,
-          event: event,
-          violations: []
-        )
-      ]
-
       expect(
-        subject.violation?(event: event, statements_history: statements_history)
+        subject.violation?(operation: operation, statements_history: statements_history)
       ).to be true
+    end
 
-      statements_history = [
-        Authorizer::AccountStatement::CreationStatement.new(
-          active_card: active_card,
-          available_limit: available_limit,
-          event: event,
-          violations: %w[some-other-violation yet-another-violation]
-        )
-      ]
+    context 'violations unrelated to account creation' do
+      let(:violations) { %w[some-other-violation yet-another-violation] }
 
-      expect(
-        subject.violation?(event: event, statements_history: statements_history)
-      ).to be true
+      it 'violates when trying to recreate/update the account' do
+        expect(
+          subject.violation?(operation: operation, statements_history: statements_history)
+        ).to be true
+      end
     end
   end
 end

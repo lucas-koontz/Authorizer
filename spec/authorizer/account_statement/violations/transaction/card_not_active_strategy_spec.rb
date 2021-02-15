@@ -4,47 +4,42 @@ RSpec.describe Authorizer::AccountStatement::Violations::
                Transaction::CardNotActiveStrategy do
   subject { described_class.new }
 
+  let(:operation) { nil }
+  let(:active_card) { true }
+  let(:available_limit) { 1 }
+
+  let(:violations) { [] }
+
+  let(:statements_history) do
+    [
+      Authorizer::AccountStatement::TransactionStatement.new(
+        active_card: active_card,
+        available_limit: available_limit,
+        operation: operation,
+        violations: violations
+      )
+    ]
+  end
+
   describe '#rule_name' do
     it { expect(subject.rule_name).to eq('card-not-active') }
   end
 
   describe '#violation?' do
-    let(:event) { nil }
-    let(:active_card) { true }
-    let(:available_limit) { 1 }
-
     it 'allows transaction if the card is active' do
-      active_card = true
-
-      statements_history = [
-        Authorizer::AccountStatement::TransactionStatement.new(
-          active_card: active_card,
-          available_limit: available_limit,
-          event: event,
-          violations: []
-        )
-      ]
-
       expect(
-        subject.violation?(event: event, statements_history: statements_history)
+        subject.violation?(operation: operation, statements_history: statements_history)
       ).to be false
     end
 
-    it 'violates when trying to do transaction with card deactivated' do
-      active_card = false
+    context 'card is not active' do
+      let(:active_card) { false }
 
-      statements_history = [
-        Authorizer::AccountStatement::CreationStatement.new(
-          active_card: active_card,
-          available_limit: available_limit,
-          event: event,
-          violations: []
-        )
-      ]
-
-      expect(
-        subject.violation?(event: event, statements_history: statements_history)
-      ).to be true
+      it 'violates when trying to do transaction' do
+        expect(
+          subject.violation?(operation: operation, statements_history: statements_history)
+        ).to be true
+      end
     end
   end
 end

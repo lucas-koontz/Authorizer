@@ -9,10 +9,10 @@ module Authorizer
             'insufficient-limit'
           end
 
-          def violation?(event:, statements_history:)
+          def violation?(operation:, statements_history:)
             latest_statement = statements_history[-1]
 
-            !latest_statement.nil? && latest_statement.available_limit < event[:amount]
+            !latest_statement.nil? && latest_statement.available_limit < operation[:amount]
           end
         end
       end

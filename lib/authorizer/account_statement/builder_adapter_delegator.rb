@@ -3,15 +3,15 @@
 module Authorizer
   module AccountStatement
     class BuilderAdapterDelegator
-      attr_reader :event
+      attr_reader :operation
 
-      def initialize(event)
-        @event = event
+      def initialize(operation)
+        @operation = operation
       end
 
       def adapter
-        return Adapters::CreationStatementAdapter if event[:account]
-        return Adapters::TransactionStatementAdapter if event[:transaction]
+        return Adapters::CreationStatementAdapter if operation[:account]
+        return Adapters::TransactionStatementAdapter if operation[:transaction]
       end
     end
   end

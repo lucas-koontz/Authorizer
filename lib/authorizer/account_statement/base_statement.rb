@@ -5,11 +5,11 @@ module Authorizer
     class BaseStatement
       attr_reader :active_card, :available_limit, :violations
 
-      def initialize(active_card:, available_limit:, event:, violations: [])
+      def initialize(active_card:, available_limit:, operation:, violations: [])
         @active_card = active_card
         @available_limit = available_limit
         @violations = violations
-        @event = event
+        @operation = operation
       end
 
       def to_s
@@ -24,7 +24,7 @@ module Authorizer
 
       protected
 
-      attr_reader :event
+      attr_reader :operation
     end
   end
 end
