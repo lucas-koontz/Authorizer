@@ -6,7 +6,7 @@ RSpec.describe Authorizer::Operator do
   end
 
   let(:operator_output) do
-    [{ account: { "active-card": true, "available-limit": 100 }, violations: [] }]
+    [{ 'account': { 'active-card': true, 'available-limit': 100 }, 'violations': [] }]
   end
 
   describe '#call' do
@@ -20,9 +20,10 @@ RSpec.describe Authorizer::Operator do
     end
 
     it 'transforms input into array' do
-      expected_input = operator_input.split(/\n/)
+      expected_input = [{ 'account' => { 'active-card' => true, 'available-limit' => 100 } }]
 
-      expect(ARGF).to receive(:read).and_return(operator_input)
+      allow(ARGF).to receive(:read).and_return(operator_input)
+
       expect(Authorizer::Processor).to receive(:call)
         .with(event_stream: expected_input)
         .and_return(operator_output)
@@ -33,7 +34,8 @@ RSpec.describe Authorizer::Operator do
     it 'outputs results from processor into stdout' do
       expected_output = "#{operator_output.join("\n")}\n"
 
-      expect(ARGF).to receive(:read).and_return(operator_input)
+      allow(ARGF).to receive(:read).and_return(operator_input)
+
       expect(Authorizer::Processor).to receive(:new).and_return(processor)
 
       expect { described_class.call }.to output(expected_output).to_stdout

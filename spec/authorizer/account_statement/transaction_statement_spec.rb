@@ -22,7 +22,8 @@ RSpec.describe Authorizer::AccountStatement::TransactionStatement do
   end
 
   describe '#new' do
+    it { expect(subject.amount).to eq(amount) }
     it { expect(subject.merchant).to eq(merchant) }
-    it { expect(subject.time).to eq(DateTime.parse(time)) }
+    it { expect(subject.time).to eq(Time.parse(time)) }
   end
 end

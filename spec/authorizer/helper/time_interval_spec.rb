@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Authorizer::Helpers::TimeInterval do
   describe '#in_minutes_interval?' do
     let(:end_time) { Time.now }

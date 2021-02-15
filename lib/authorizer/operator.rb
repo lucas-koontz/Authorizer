@@ -3,9 +3,15 @@
 module Authorizer
   class Operator < ServiceBase
     def call
-      input = ARGF.read.split(/\n/) # transform into array
-      output = Authorizer::Processor.call(event_stream: input)
+      input = ARGF.read
+      output = Authorizer::Processor.call(event_stream: parse(input))
       puts output
+    end
+
+    private
+
+    def parse(input)
+      input.split(/\n/).map { |line| JSON.parse(line) }
     end
   end
 end

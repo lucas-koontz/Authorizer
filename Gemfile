@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in authorizer.gemspec
 gemspec
 
+gem 'as-duration', '~> 0.1.1'
 gem 'rake', '~> 13.0'
 
 group :development, :test do
