@@ -13,6 +13,8 @@ module Authorizer
           end
         end
 
+        private
+
         def klass
           CreationStatement
         end

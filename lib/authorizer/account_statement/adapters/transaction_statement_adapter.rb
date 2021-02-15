@@ -20,6 +20,8 @@ module Authorizer
           end
         end
 
+        private
+
         def klass
           TransactionStatement
         end

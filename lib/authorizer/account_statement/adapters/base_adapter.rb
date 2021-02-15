@@ -15,6 +15,8 @@ module Authorizer
           raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
         end
 
+        protected
+
         def build_instance(active_card:, available_limit:)
           klass.new(
             active_card: active_card,
