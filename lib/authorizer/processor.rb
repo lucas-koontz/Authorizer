@@ -2,12 +2,18 @@
 
 module Authorizer
   class Processor < ServiceBase
-    attr_reader :operation_stream
-
+    # expect operation_stream to be array of Hash
     def call(operation_stream:)
-      operation_stream
-    end
+      statements_history = []
 
-    def process; end
+      operation_stream.each do |operation|
+        statements_history << AccountStatement::Builder.call(
+          raw_operation: operation,
+          statements_history: statements_history
+        )
+      end
+
+      statements_history
+    end
   end
 end
