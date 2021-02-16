@@ -10,8 +10,8 @@ module Authorizer
       end
 
       def adapter
-        return Adapters::CreationStatementAdapter if operation[:account]
-        return Adapters::TransactionStatementAdapter if operation[:transaction]
+        return Adapters::CreationStatementAdapter if operation['account']
+        return Adapters::TransactionStatementAdapter if operation['transaction']
       end
     end
   end

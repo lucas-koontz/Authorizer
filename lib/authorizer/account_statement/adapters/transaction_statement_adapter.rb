@@ -8,7 +8,7 @@ module Authorizer
           if violations.empty? # can create
             build_instance(
               active_card: lastest_statement.active_card,
-              available_limit: lastest_statement.available_limit - operation[:amount]
+              available_limit: lastest_statement.available_limit - operation['amount']
             )
           elsif statements_history.empty?
             build_instance(
@@ -27,7 +27,7 @@ module Authorizer
         end
 
         def operation_id
-          :transaction
+          'transaction'
         end
 
         def violation_strategies

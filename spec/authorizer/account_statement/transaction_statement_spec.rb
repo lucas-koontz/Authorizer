@@ -9,7 +9,7 @@ RSpec.describe Authorizer::AccountStatement::TransactionStatement do
   let(:amount) { 10 }
   let(:time) { '2019-02-13T11:00:00.000Z' }
   let(:operation) do
-    { merchant: merchant, amount: amount, time: time }
+    { 'merchant' => merchant, 'amount' => amount, 'time' => time }
   end
 
   subject do

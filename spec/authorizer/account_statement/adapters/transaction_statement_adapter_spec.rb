@@ -4,7 +4,7 @@ RSpec.describe Authorizer::AccountStatement::Adapters::TransactionStatementAdapt
   let(:time) { '2019-02-13T11:00:00.000Z' }
   let(:merchant) { 'Amazon' }
   let(:amount) { 10 }
-  let(:operation) { { time: time, merchant: merchant, amount: amount } }
+  let(:operation) { { 'time' => time, 'merchant' => merchant, 'amount' => amount } }
   let(:active_card) { true }
   let(:available_limit) { 1000 }
   let(:violations) { [] }
@@ -29,7 +29,7 @@ RSpec.describe Authorizer::AccountStatement::Adapters::TransactionStatementAdapt
   let(:raw_operation_time) { '2019-02-13T11:00:00.000Z' }
 
   let(:raw_operation) do
-    { transaction: { merchant: raw_operation_merchant, amount: raw_operation_amount, time: raw_operation_time } }
+    { 'transaction' => { 'merchant' => raw_operation_merchant, 'amount' => raw_operation_amount, 'time' => raw_operation_time } }
   end
 
   subject { described_class.new(raw_operation: raw_operation, statements_history: statements_history) }
@@ -104,9 +104,9 @@ RSpec.describe Authorizer::AccountStatement::Adapters::TransactionStatementAdapt
     context 'high frequency transactions' do
       let(:statements_history) do
         [
-          transaction({ time: '2019-02-13T11:00:00.000Z', merchant: 'Habbib\'s', amount: 30 }),
-          transaction({ time: '2019-02-13T11:00:30.000Z', merchant: 'Taco Bell', amount: 50 }),
-          transaction({ time: '2019-02-13T11:01:59.000Z', merchant: 'Taco Bell', amount: 50 })
+          transaction({ 'time' => '2019-02-13T11:00:00.000Z', 'merchant' => 'Habbib\'s', 'amount' => 30 }),
+          transaction({ 'time' => '2019-02-13T11:00:30.000Z', 'merchant' => 'Taco Bell', 'amount' => 50 }),
+          transaction({ 'time' => '2019-02-13T11:01:59.000Z', 'merchant' => 'Taco Bell', 'amount' => 50 })
         ]
       end
 
@@ -148,9 +148,9 @@ RSpec.describe Authorizer::AccountStatement::Adapters::TransactionStatementAdapt
     context 'insuficient limit and high frequency transactions' do
       let(:statements_history) do
         [
-          transaction({ time: '2019-02-13T11:00:00.000Z', merchant: 'Habbib\'s', amount: 30 }),
-          transaction({ time: '2019-02-13T11:00:30.000Z', merchant: 'Taco Bell', amount: 50 }),
-          transaction({ time: '2019-02-13T11:01:59.000Z', merchant: 'Taco Bell', amount: 50 })
+          transaction({ 'time' => '2019-02-13T11:00:00.000Z', 'merchant' => 'Habbib\'s', 'amount' => 30 }),
+          transaction({ 'time' => '2019-02-13T11:00:30.000Z', 'merchant' => 'Taco Bell', 'amount' => 50 }),
+          transaction({ 'time' => '2019-02-13T11:01:59.000Z', 'merchant' => 'Taco Bell', 'amount' => 50 })
         ]
       end
 

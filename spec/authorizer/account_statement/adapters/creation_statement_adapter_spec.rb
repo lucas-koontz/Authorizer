@@ -21,7 +21,7 @@ RSpec.describe Authorizer::AccountStatement::Adapters::CreationStatementAdapter 
   let(:raw_operation_available_limit) { available_limit }
 
   let(:raw_operation) do
-    { account: { "active-card": raw_operation_active_card, "available-limit": raw_operation_available_limit } }
+    { 'account' => { 'active-card' => raw_operation_active_card, 'available-limit' => raw_operation_available_limit } }
   end
 
   subject { described_class.new(raw_operation: raw_operation, statements_history: statements_history) }

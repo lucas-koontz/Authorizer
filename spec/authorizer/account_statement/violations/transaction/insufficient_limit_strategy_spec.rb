@@ -10,7 +10,7 @@ RSpec.describe Authorizer::AccountStatement::Violations::
 
   describe '#violation?' do
     let(:amount) { 0 }
-    let(:operation) { { amount: amount } }
+    let(:operation) { { 'amount' => amount } }
     let(:active_card) { true }
     let(:available_limit) { 100 }
     let(:violations) { [] }

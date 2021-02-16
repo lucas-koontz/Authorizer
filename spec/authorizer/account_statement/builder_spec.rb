@@ -2,7 +2,7 @@
 
 RSpec.describe Authorizer::AccountStatement::Builder do
   describe '#call' do
-    let(:raw_operation) { { transaction: { merchant: 'merchant', amount: 'amount', time: 'time' } } }
+    let(:raw_operation) { { 'transaction' => { 'merchant' => 'merchant', 'amount' => 'amount', 'time' => 'time' } } }
 
     let(:statements_history) { ['not_empty'] }
 

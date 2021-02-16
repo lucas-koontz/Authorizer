@@ -2,11 +2,11 @@
 
 RSpec.describe Authorizer::AccountStatement::BuilderAdapterDelegator do
   let(:creation_operation) do
-    { account: { "active-card": true, "available-limit": 100 } }
+    { 'account' => { 'active-card' => true, 'available-limit' => 100 } }
   end
 
   let(:transaction_operation) do
-    { transaction: { merchant: 'Burger King', amount: 20, time: '2019-02-13T10:00:00.000Z' } }
+    { 'transaction' => { 'merchant' => 'Burger King', 'amount' => 20, 'time' => '2019-02-13T10:00:00.000Z' } }
   end
 
   describe '#adapter' do

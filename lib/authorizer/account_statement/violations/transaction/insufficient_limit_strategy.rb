@@ -12,7 +12,7 @@ module Authorizer
           def violation?(operation:, statements_history:)
             latest_statement = statements_history[-1]
 
-            !latest_statement.nil? && latest_statement.available_limit < operation[:amount]
+            !latest_statement.nil? && latest_statement.available_limit < operation['amount']
           end
         end
       end

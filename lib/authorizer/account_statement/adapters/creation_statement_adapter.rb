@@ -6,8 +6,8 @@ module Authorizer
       class CreationStatementAdapter < BaseAdapter
         def build
           if violations.empty? # can create
-            build_instance(active_card: operation[:'active-card'],
-                           available_limit: operation[:"available-limit"])
+            build_instance(active_card: operation['active-card'],
+                           available_limit: operation['available-limit'])
           else
             build_instance_with_violations
           end
@@ -20,7 +20,7 @@ module Authorizer
         end
 
         def operation_id
-          :account
+          'account'
         end
 
         def violation_strategies

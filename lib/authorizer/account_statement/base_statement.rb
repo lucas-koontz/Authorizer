@@ -12,14 +12,18 @@ module Authorizer
         @operation = operation
       end
 
-      def to_s
-        {
-          account: {
-            'active-card': active_card,
-            'available-limit': available_limit,
-            violations: violations
+      def print
+        JSON.generate(
+          {
+            account: {
+              'active-card': active_card,
+              'available-limit': available_limit,
+              violations: violations
+            }
           }
-        }
+        ).gsub(/"((?:\\"|[^"])*)"/) do |_x|
+          %('#{Regexp.last_match(1).gsub(/'|\\"/, "'" => %q(\'), '\\"' => '"')}')
+        end
       end
 
       protected

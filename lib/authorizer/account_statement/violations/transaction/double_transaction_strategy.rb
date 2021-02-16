@@ -10,9 +10,9 @@ module Authorizer
           end
 
           def violation?(operation:, statements_history:)
-            time = Time.parse(operation[:time])
-            merchant = operation[:merchant]
-            amount = operation[:amount]
+            time = Time.parse(operation['time'])
+            merchant = operation['merchant']
+            amount = operation['amount']
 
             similar_transaction?(
               statements_history: statements_history,
@@ -28,8 +28,9 @@ module Authorizer
             interval = 2
 
             statements_history.reverse_each do |statement|
-              if statement.time.nil? || !statement.violations.empty?
-                countinue
+              if statement.is_a?(Authorizer::AccountStatement::CreationStatement) ||
+                 !statement.violations.empty?
+                next
               elsif Helpers::TimeInterval.in_minutes_interval?(
                 start_time: statement.time,
                 end_time: time,

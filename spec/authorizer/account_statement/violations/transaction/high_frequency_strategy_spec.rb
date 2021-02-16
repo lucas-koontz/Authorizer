@@ -9,13 +9,22 @@ RSpec.describe Authorizer::AccountStatement::Violations::
   end
 
   describe '#violation?' do
-    let(:operation) { { time: '2019-02-13T10:00:00.000Z' } }
+    let(:operation) { { 'time' => '2019-02-13T10:00:00.000Z' } }
     let(:active_card) { true }
     let(:available_limit) { 100 }
     let(:violations) { [] }
 
     let(:transaction) do
       Authorizer::AccountStatement::TransactionStatement.new(
+        active_card: active_card,
+        available_limit: available_limit,
+        operation: operation,
+        violations: violations
+      )
+    end
+
+    let(:creation_transaction) do
+      Authorizer::AccountStatement::CreationStatement.new(
         active_card: active_card,
         available_limit: available_limit,
         operation: operation,
@@ -47,8 +56,17 @@ RSpec.describe Authorizer::AccountStatement::Violations::
 
       expect(
         subject.violation?(
-          operation: { time: '2019-02-13T10:02:01.000Z' },
+          operation: { 'time' => '2019-02-13T10:02:01.000Z' },
           statements_history: [transaction, transaction, transaction]
+        )
+      ).to be false
+    end
+
+    it 'ignores creation statements' do
+      expect(
+        subject.violation?(
+          operation: operation,
+          statements_history: [creation_transaction, creation_transaction, transaction, transaction]
         )
       ).to be false
     end
