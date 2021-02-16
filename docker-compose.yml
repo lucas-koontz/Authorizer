@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  authorizer:
+    build:
+      context: .
+    image: authorizer
+    volumes:
+      - "/usr/local/bundle"
+      - ".:/gem"
