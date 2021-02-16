@@ -21,9 +21,7 @@ module Authorizer
               violations: violations
             }
           }
-        ).gsub(/"((?:\\"|[^"])*)"/) do |_x|
-          %('#{Regexp.last_match(1).gsub(/'|\\"/, "'" => %q(\'), '\\"' => '"')}')
-        end
+        )
       end
 
       protected

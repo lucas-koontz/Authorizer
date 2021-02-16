@@ -5,7 +5,7 @@ RSpec.describe Authorizer::AccountStatement::Violations::
   subject { described_class.new }
 
   describe '#rule_name' do
-    it { expect(subject.rule_name).to eq('double-transaction') }
+    it { expect(subject.rule_name).to eq('doubled-transaction') }
   end
 
   describe '#violation?' do

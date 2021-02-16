@@ -6,7 +6,7 @@ module Authorizer
       module Transaction
         class DoubleTransactionStrategy < Strategy
           def rule_name
-            'double-transaction'
+            'doubled-transaction'
           end
 
           def violation?(operation:, statements_history:)

@@ -5,7 +5,9 @@ module Authorizer
     def call
       input = ARGF.read
       output = Authorizer::Processor.call(operation_stream: parse(input))
-      puts output
+      output.each do |statement|
+        puts statement.print
+      end
     end
 
     private

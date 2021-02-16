@@ -6,7 +6,9 @@ RSpec.describe Authorizer::Operator do
       '{"account": {"active-card": true, "available-limit": 100}}'
     end
 
-    let(:processor_output) { ['output'] }
+    let(:output_instance) { double(print: 'output') }
+
+    let(:processor_output) { [output_instance] }
 
     let(:processor) { double(call: processor_output) }
 

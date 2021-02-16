@@ -24,7 +24,7 @@ RSpec.describe Authorizer::AccountStatement::BaseStatement do
   describe '#print' do
     it 'prints a valid statement' do
       expect(subject.print).to eq(
-        "{'account':{'active-card':true,'available-limit':100,'violations':['a-very-bad-violation']}}"
+        '{"account":{"active-card":true,"available-limit":100,"violations":["a-very-bad-violation"]}}'
       )
     end
   end
