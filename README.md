@@ -21,20 +21,20 @@ Authorizer is an application that authorizes a transaction for a specific accoun
   - [Code of Conduct](#code-of-conduct)
 ## Scenario
 
-Authorizer is going to be provided json lines as input in the stdin, and should provide a json line output for each one — imagine this as a stream of events arriving at the authorizer.
+The authorizer is going to be provided JSON lines as input in the stdin and should provide a JSON line output for each one — imagine this as a stream of events arriving at the authorizer.
 
 
-All operations in the stream are transformed into account statements and saved in a history for latter usage.
+All operations in the stream are transformed into account statements and saved in a history for later usage.
 
-Authorizer utilizes design patterns to provide a maintainable code.
+The authorizer utilizes design patterns to provide a maintainable code.
 
 ### Operations
 
-Adapter pattern creates a builder to handle each type of operation.
+The adapter pattern creates a builder to handle each type of operation.
 
 ### Violations
 
-Strategy pattern offers an structure to handle multiple violations that can occur in an operation.
+Strategy pattern offers a structure to handle multiple violations that can occur in an operation.
 
 ## Operations
 The program handles two kinds of operations, deciding on which one according to the line that is being processed:
@@ -49,7 +49,7 @@ For the sake of simplicity, you can assume:
 
 **Input**
 
-Creates the account with `available-limit` and `active-card` set. For simplicity sake, we will assume the application will deal with just one account.
+Creates the account with `available-limit` and `active-card` set. For simplicity's sake, we will assume the application will deal with just one account.
 
 **Output**
 
@@ -79,7 +79,7 @@ output
 
 **Input**
 
-Tries to authorize a transaction for a particular `merchant`, `amount` and `time` given the account's state and last authorized transactions.
+Tries to authorize a transaction for a particular `merchant`, `amount`, and `time` given the account's state and last authorized transactions.
 
 **Output**
 
@@ -88,9 +88,9 @@ The created account's current state + all business logic violations.
 **Business rules** 
 - No transaction should be accepted without a properly initialized account: `account-not-initialized`
 - No transaction should be accepted when the card is not active: `card-not-active`
-- The transaction amount should not exceed available limit: `insufficient-limit`
-- There should not be more than 3 transactions on a 2 minute interval: `high-frequency-small-interval`
-- There should not be more than 1 similar transactions (same amount and merchant) in a 2 minutes interval: `doubled-transaction`
+- The transaction amount should not exceed the available limit: `insufficient-limit`
+- There should not be more than 3 transactions on a 2-minute interval: `high-frequency-small-interval`
+- There should not be more than 1 similar transaction (same amount and merchant) in a 2 minutes interval: `doubled-transaction`
 
 **Examples**
 
@@ -116,7 +116,7 @@ To run Authorizer you just need to run:
 $ bin/authorize
 ```
 
-It will open a prompt and you can provide `json` lines. Alternatively, you can input a stream of events from a file.
+It will open a prompt and you can provide `JSON` lines. Alternatively, you can input a stream of events from a file.
 
 ```bash
 $ cat operations
